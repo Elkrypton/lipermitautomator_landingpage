@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LI Permit Automator | Permit Support for Long Island Contractors</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0f172a',    // slate-900
+                            slate: '#475569',   // slate-600
+                            blue: '#2563eb',    // blue-600
+                            blueHover: '#1d4ed8', // blue-700
+                            light: '#f8fafc',   // slate-50
+                            border: '#e2e8f0',  // slate-200
+                            accent: '#e0e7ff'   // indigo-100
+                        },
+                        status: {
+                            success: '#10b981', // emerald-500
+                            warning: '#f59e0b', // amber-500
+                            error: '#ef4444'    // red-500
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'draw-line': 'drawLine 2s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        drawLine: {
+                            '0%': { height: '0' },
+                            '100%': { height: '100%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #475569;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* SPA Routing View Toggle */
+        .page-view { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .page-view.active { display: block; opacity: 1; }
+
+        /* Flat UI specific styles */
+        button, input, select, textarea {
+            border-radius: 4px;
+        }
+
+        /* Accordion (FAQ) details reset */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 100ms; }
+        .reveal-delay-2 { transition-delay: 200ms; }
+        .reveal-delay-3 { transition-delay: 300ms; }
+        .reveal-delay-4 { transition-delay: 400ms; }
+
+        /* Custom SVG styling */
+        .svg-flat-stroke {
+            stroke: #0f172a;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        /* Timeline specific */
+        .timeline-line {
+            transition: height 1s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-white selection:bg-brand-blue selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white border-b border-brand-border transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="navigate('home')">
+                    <div class="w-10 h-10 bg-brand-navy flex items-center justify-center rounded text-white font-bold mr-3 transition-transform group-hover:scale-105">
+                        <i data-lucide="file-check-2" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-extrabold text-brand-navy text-xl tracking-tight">LI Permit Automator</span>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex space-x-8">
+                    <a href="#services" onclick="navigate('home')" class="text-sm font-semibold text-brand-slate hover:text-brand-blue transition-colors relative group">
+                        Services
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#how-it-works" onclick="navigate('home')" class="text-sm font-semibold text-brand-slate hover:text-brand-blue transition-colors relative group">
+                        How It Works
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#coverage" onclick="navigate('home')" class="text-sm font-semibold text-brand-slate hover:text-brand-blue transition-colors relative group">
+                        Coverage
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#pricing" onclick="navigate('home')" class="text-sm font-semibold text-brand-slate hover:text-brand-blue transition-colors relative group">
+                        Pricing
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#faq" onclick="navigate('home')" class="text-sm font-semibold text-brand-slate hover:text-brand-blue transition-colors relative group">
+                        FAQ
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-blue transition-all group-hover:w-full"></span>
+                    </a>
+                </nav>
+
+                <!-- Desktop CTAs -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <a href="#services" onclick="navigate('home')" class="text-sm font-bold text-brand-slate hover:text-brand-blue px-3 py-2 transition-colors">Explore Services</a>
+                    <button onclick="navigate('contact')" class="bg-brand-blue hover:bg-brand-blueHover text-white px-5 py-2.5 rounded font-bold transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0">
+                        Request Information
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-brand-slate hover:text-brand-navy p-2 focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-brand-border bg-white absolute w-full shadow-xl">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#services" onclick="navigate('home'); toggleMobileMenu();" class="block px-3 py-3 text-base font-bold text-brand-slate hover:bg-brand-light rounded">Services</a>
+                <a href="#how-it-works" onclick="navigate('home'); toggleMobileMenu();" class="block px-3 py-3 text-base font-bold text-brand-slate hover:bg-brand-light rounded">How It Works</a>
+                <a href="#coverage" onclick="navigate('home'); toggleMobileMenu();" class="block px-3 py-3 text-base font-bold text-brand-slate hover:bg-brand-light rounded">Coverage</a>
+                <a href="#pricing" onclick="navigate('home'); toggleMobileMenu();" class="block px-3 py-3 text-base font-bold text-brand-slate hover:bg-brand-light rounded">Pricing</a>
+                <a href="#faq" onclick="navigate('home'); toggleMobileMenu();" class="block px-3 py-3 text-base font-bold text-brand-slate hover:bg-brand-light rounded">FAQ</a>
+                <div class="pt-4 flex flex-col gap-2 pb-4">
+                    <button onclick="navigate('contact'); toggleMobileMenu();" class="w-full bg-brand-blue text-white px-4 py-3 rounded text-base font-bold text-center">Request Information</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        
+        <div id="home-view" class="page-view active">
+            
+            <!-- Hero Section -->
+            <section class="pt-24 pb-28 px-4 sm:px-6 lg:px-8 bg-brand-light border-b border-brand-border overflow-hidden relative">
+                <!-- Background decorative flat shapes -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-accent rounded-full opacity-50 blur-3xl animate-pulse-slow"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-blue-100 rounded-full opacity-50 blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+                    
+                    <!-- Hero Text -->
+                    <div class="w-full lg:w-1/2 reveal">
+                        <div class="inline-flex items-center space-x-2 bg-white border border-brand-border px-3 py-1 rounded-full mb-6">
+                            <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                            <span class="text-xs font-bold text-brand-navy uppercase tracking-widest">Long Island NY</span>
+                        </div>
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-brand-navy tracking-tight leading-[1.1] mb-6">
+                            Simplify Permitting Across Long Island.
+                        </h1>
+                        <p class="text-xl text-brand-slate mb-6 leading-relaxed font-medium">
+                            LI Permit Automator helps residential and commercial contractors navigate permit requirements, prepare documentation, identify compliance issues, and stay organized throughout the permitting process.
+                        </p>
+                        <p class="text-base font-bold text-brand-slate mb-10 pb-6 border-b border-brand-border inline-block w-full">
+                            Built for contractors working across Nassau and Suffolk Counties.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <button onclick="navigate('contact')" class="bg-brand-blue hover:bg-brand-blueHover text-white px-8 py-4 rounded font-bold transition-all hover:-translate-y-1 hover:shadow-xl text-center text-lg">
+                                Request Information
+                            </button>
+                            <a href="#services" class="bg-white border-2 border-brand-border hover:border-brand-navy text-brand-navy px-8 py-4 rounded font-bold transition-all hover:-translate-y-1 text-center flex items-center justify-center text-lg group">
+                                See Our Services
+                                <i data-lucide="arrow-right" class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual (Rich Flat 2D Illustration) -->
+                    <div class="w-full lg:w-1/2 flex justify-center lg:justify-end reveal reveal-delay-2">
+                        <div class="relative w-full max-w-lg aspect-square">
+                            
+                            <!-- Main Clipboard Graphic -->
+                            <div class="absolute inset-0 bg-white border-4 border-brand-navy rounded-xl shadow-2xl z-20 flex flex-col overflow-hidden animate-float">
+                                <div class="h-12 bg-brand-navy w-full flex items-center px-4 relative">
+                                    <div class="w-16 h-4 bg-brand-slate rounded mx-auto absolute left-1/2 -translate-x-1/2 top-4"></div>
+                                    <div class="w-3 h-3 rounded-full bg-status-error mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-status-warning mr-2"></div>
+                                    <div class="w-3 h-3 rounded-full bg-status-success"></div>
+                                </div>
+                                <div class="flex-1 p-6 flex flex-col gap-4 bg-brand-light">
+                                    <div class="h-6 w-1/3 bg-brand-navy rounded"></div>
+                                    <div class="space-y-3 mt-4">
+                                        <div class="flex items-center gap-3 bg-white p-3 border-2 border-brand-border rounded">
+                                            <div class="w-5 h-5 border-2 border-status-success rounded flex items-center justify-center bg-green-50"><i data-lucide="check" class="w-3 h-3 text-status-success"></i></div>
+                                            <div class="h-4 w-3/4 bg-brand-slate rounded"></div>
+                                        </div>
+                                        <div class="flex items-center gap-3 bg-white p-3 border-2 border-brand-border rounded">
+                                            <div class="w-5 h-5 border-2 border-status-success rounded flex items-center justify-center bg-green-50"><i data-lucide="check" class="w-3 h-3 text-status-success"></i></div>
+                                            <div class="h-4 w-1/2 bg-brand-slate rounded"></div>
+                                        </div>
+                                        <div class="flex items-center gap-3 bg-white p-3 border-2 border-brand-blue rounded">
+                                            <div class="w-5 h-5 border-2 border-brand-blue rounded flex items-center justify-center bg-blue-50"><i data-lucide="loader-2" class="w-3 h-3 text-brand-blue animate-spin"></i></div>
+                                            <div class="h-4 w-2/3 bg-brand-blue rounded opacity-50"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-auto flex justify-between items-end">
+                                        <div class="w-16 h-16 bg-brand-border rounded-full flex items-center justify-center border-2 border-white shadow">
+                                            <i data-lucide="home" class="w-8 h-8 text-brand-navy"></i>
+                                        </div>
+                                        <div class="w-24 h-8 bg-status-success rounded opacity-20"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Element 1: Blueprint -->
+                            <div class="absolute -left-12 top-20 w-48 h-48 bg-brand-blue border-4 border-brand-navy rounded z-10 shadow-lg transform -rotate-12 animate-float-delayed flex flex-col p-4 opacity-90">
+                                <div class="w-full h-full border-2 border-white border-dashed rounded flex flex-col justify-between p-2">
+                                    <div class="w-1/2 h-2 bg-white rounded"></div>
+                                    <div class="flex gap-2">
+                                        <div class="w-full h-12 bg-white opacity-20 rounded"></div>
+                                        <div class="w-full h-12 bg-white opacity-20 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Element 2: Approval Stamp -->
+                            <div class="absolute -right-8 bottom-12 w-32 h-32 bg-status-success border-4 border-white rounded-full z-30 shadow-xl transform rotate-12 flex items-center justify-center animate-float">
+                                <div class="w-28 h-28 border-4 border-white border-dashed rounded-full flex flex-col items-center justify-center">
+                                    <i data-lucide="check-circle-2" class="w-10 h-10 text-white mb-1"></i>
+                                    <span class="text-white font-black text-[10px] tracking-widest uppercase">Approved</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-brand-border">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-6">Permitting Gets Complicated Fast.</h2>
+                        <p class="text-xl text-brand-slate font-medium leading-relaxed">
+                            Managing projects across Long Island means dealing with constantly shifting requirements. What works in one Town might be completely rejected in a neighboring Village.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Problem Cards -->
+                        <div class="reveal reveal-delay-1 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-red-50 border-2 border-red-200 rounded-full flex items-center justify-center text-status-error mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="map-pinned" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Different Jurisdictions</h3>
+                            <p class="text-brand-slate font-medium">Overlapping Towns and incorporated Villages have distinctly different requirements and codes.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-2 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-amber-50 border-2 border-amber-200 rounded-full flex items-center justify-center text-status-warning mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="files" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Varying Documentation</h3>
+                            <p class="text-brand-slate font-medium">Municipal forms and submission standards can vary drastically from one office to the next.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-3 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-blue-50 border-2 border-blue-200 rounded-full flex items-center justify-center text-brand-blue mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="search-x" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Overlooked Requirements</h3>
+                            <p class="text-brand-slate font-medium">Required supplemental documents like surveys or insurance certificates are easy to overlook.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-1 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-brand-light border-2 border-brand-border rounded-full flex items-center justify-center text-brand-slate mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="folders" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Scattered Packages</h3>
+                            <p class="text-brand-slate font-medium">Permit packages require precise organization that is hard to maintain across multiple projects.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-2 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-red-50 border-2 border-red-200 rounded-full flex items-center justify-center text-status-error mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Compliance Delays</h3>
+                            <p class="text-brand-slate font-medium">Missing signatures, expired licenses, or zoning compliance issues can delay start dates.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-3 p-8 border-2 border-brand-border rounded-lg bg-white hover:border-brand-navy hover:shadow-xl transition-all group flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-amber-50 border-2 border-amber-200 rounded-full flex items-center justify-center text-status-warning mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="calendar-clock" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-navy mb-3">Inspection Tracking</h3>
+                            <p class="text-brand-slate font-medium">Inspection requirements need to be carefully tracked and communicated to avoid CO delays.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="py-24 px-4 sm:px-6 lg:px-8 bg-brand-light border-b border-brand-border">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal gap-6">
+                        <div class="max-w-3xl">
+                            <h2 class="text-4xl font-extrabold text-brand-navy mb-4">Permit Support, From Requirements to Completion.</h2>
+                            <p class="text-xl text-brand-slate font-medium">Professional capabilities designed to keep your projects organized and moving forward.</p>
+                        </div>
+                        <button onclick="navigate('contact')" class="bg-brand-navy hover:bg-brand-blue text-white px-6 py-3 rounded font-bold transition-colors whitespace-nowrap">
+                            Discuss Your Project
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Service Cards -->
+                        <div class="reveal reveal-delay-1 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group relative overflow-hidden">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Jurisdiction Identification</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Help determine the applicable jurisdiction for a project and identify the relevant permitting requirements.</p>
+                        </div>
+                        
+                        <div class="reveal reveal-delay-2 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="search" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Permit Requirement Research</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Identify the forms, documentation, credentials, and other requirements associated with a project and its jurisdiction.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-3 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="file-text" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Permit Document Preparation</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Help organize and assemble the documentation required for permit submissions.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-4 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Compliance Pre-Flight</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Review permit documentation for potential missing information, inconsistencies, and issues before submission.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-1 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="calendar-check" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Inspection Tracking</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Help contractors keep track of inspection requirements and project inspection status across the build.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-2 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="folder-open" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Documentation Management</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Keep project-related permit documents organized, centralized, and accessible throughout the permitting process.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-3 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="badge-check" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Contractor Credential Support</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Help organize contractor credentials, insurance, and licenses required during the permitting process.</p>
+                        </div>
+
+                        <div class="reveal reveal-delay-4 border-2 border-brand-border rounded-xl p-6 bg-white hover:border-brand-blue hover:shadow-lg transition-all group">
+                            <div class="w-12 h-12 border-2 border-brand-border rounded-lg flex items-center justify-center text-brand-navy mb-6 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-colors">
+                                <i data-lucide="pen-tool" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-extrabold text-brand-navy mb-3">Notary / Document Support</h3>
+                            <p class="text-brand-slate font-medium leading-relaxed">Support documentation workflows involving notarization and required project paperwork coordination.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-brand-border">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-20 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-6">A Clearer Path Through the Permit Process.</h2>
+                    </div>
+
+                    <div class="relative max-w-5xl mx-auto">
+                        
+                        <!-- Desktop Horizontal Connecting Line -->
+                        <div class="hidden lg:block absolute top-10 left-20 right-20 h-1 bg-brand-border z-0">
+                            <!-- Animated fill line (CSS handled via JS intersection later, but static fallback here) -->
+                            <div class="h-full bg-brand-blue w-0 transition-all duration-1000 ease-out" id="timeline-progress"></div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 relative z-10">
+                            
+                            <!-- Steps -->
+                            <div class="reveal reveal-delay-1 flex flex-col items-center text-center relative group">
+                                <div class="w-20 h-20 bg-white border-4 border-brand-navy rounded-full flex items-center justify-center text-2xl font-black text-brand-navy mb-6 group-hover:-translate-y-2 transition-transform shadow-lg z-10 bg-white">01</div>
+                                <h4 class="text-lg font-extrabold text-brand-navy mb-2">Submit Project Info</h4>
+                                <p class="text-brand-slate font-medium px-2">Provide the basic property and project scope information.</p>
+                            </div>
+
+                            <div class="reveal reveal-delay-2 flex flex-col items-center text-center relative group">
+                                <div class="w-20 h-20 bg-white border-4 border-brand-border group-hover:border-brand-blue rounded-full flex items-center justify-center text-2xl font-black text-brand-slate group-hover:text-brand-blue mb-6 group-hover:-translate-y-2 transition-all shadow-lg z-10 bg-white">02</div>
+                                <h4 class="text-lg font-extrabold text-brand-navy mb-2">Identify Requirements</h4>
+                                <p class="text-brand-slate font-medium px-2">Determine the applicable jurisdiction and permitting requirements.</p>
+                            </div>
+
+                            <div class="reveal reveal-delay-3 flex flex-col items-center text-center relative group">
+                                <div class="w-20 h-20 bg-white border-4 border-brand-border group-hover:border-brand-blue rounded-full flex items-center justify-center text-2xl font-black text-brand-slate group-hover:text-brand-blue mb-6 group-hover:-translate-y-2 transition-all shadow-lg z-10 bg-white">03</div>
+                                <h4 class="text-lg font-extrabold text-brand-navy mb-2">Prepare Docs</h4>
+                                <p class="text-brand-slate font-medium px-2">Organize the forms and documents needed for the project.</p>
+                            </div>
+
+                            <div class="reveal reveal-delay-4 flex flex-col items-center text-center relative group">
+                                <div class="w-20 h-20 bg-white border-4 border-brand-border group-hover:border-brand-blue rounded-full flex items-center justify-center text-2xl font-black text-brand-slate group-hover:text-brand-blue mb-6 group-hover:-translate-y-2 transition-all shadow-lg z-10 bg-white">04</div>
+                                <h4 class="text-lg font-extrabold text-brand-navy mb-2">Review Compliance</h4>
+                                <p class="text-brand-slate font-medium px-2">Identify potential missing information before submission.</p>
+                            </div>
+
+                            <div class="reveal reveal-delay-4 flex flex-col items-center text-center relative group">
+                                <div class="w-20 h-20 bg-brand-navy border-4 border-brand-navy rounded-full flex items-center justify-center text-2xl font-black text-white mb-6 group-hover:-translate-y-2 transition-transform shadow-xl z-10">05</div>
+                                <h4 class="text-lg font-extrabold text-brand-navy mb-2">Stay Organized</h4>
+                                <p class="text-brand-slate font-medium px-2">Keep permit documents and inspections organized throughout.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="coverage" class="py-24 px-4 sm:px-6 lg:px-8 bg-brand-navy text-white overflow-hidden relative border-b border-brand-border">
+                
+                <!-- Abstract Flat Map SVG Background -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center overflow-hidden">
+                    <svg viewBox="0 0 800 400" class="w-[150%] max-w-none lg:w-full h-auto text-brand-blue" fill="currentColor">
+                        <!-- Abstract Long Island shape -->
+                        <path d="M100,250 Q150,220 200,240 T300,220 T400,230 T500,200 T600,180 T700,150 L750,160 Q720,190 650,210 T550,240 T450,260 T350,280 T250,270 T150,290 Z" />
+                    </svg>
+                </div>
+
+                <div class="max-w-5xl mx-auto relative z-10">
+                    <div class="text-center mb-16 reveal">
+                        <h2 class="text-4xl font-extrabold text-white mb-6">Serving Contractors Across Nassau & Suffolk Counties</h2>
+                        <p class="text-xl text-slate-300 font-medium">LI Permit Automator is focused on the unique permitting requirements of Long Island municipalities.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal reveal-delay-2">
+                        <!-- Nassau -->
+                        <div class="bg-slate-800/50 backdrop-blur-sm border-2 border-slate-700 rounded-xl p-8 hover:border-brand-blue transition-colors">
+                            <div class="flex items-center mb-6 pb-4 border-b border-slate-700">
+                                <div class="w-12 h-12 bg-slate-700 rounded flex items-center justify-center mr-4">
+                                    <i data-lucide="map" class="w-6 h-6 text-brand-blue"></i>
+                                </div>
+                                <h3 class="text-2xl font-extrabold">Nassau County</h3>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Hempstead</li>
+                                <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> North Hempstead</li>
+                                <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Oyster Bay</li>
+                                <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Long Beach</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Suffolk -->
+                        <div class="bg-slate-800/50 backdrop-blur-sm border-2 border-slate-700 rounded-xl p-8 hover:border-brand-blue transition-colors">
+                            <div class="flex items-center mb-6 pb-4 border-b border-slate-700">
+                                <div class="w-12 h-12 bg-slate-700 rounded flex items-center justify-center mr-4">
+                                    <i data-lucide="map" class="w-6 h-6 text-brand-blue"></i>
+                                </div>
+                                <h3 class="text-2xl font-extrabold">Suffolk County</h3>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <ul class="space-y-4">
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Babylon</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Brookhaven</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> East Hampton</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Huntington</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Islip</li>
+                                </ul>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Riverhead</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Shelter Island</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Smithtown</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Southampton</li>
+                                    <li class="flex items-center text-slate-300 text-lg font-medium"><div class="w-2 h-2 bg-brand-blue rounded-full mr-4"></div> Southold</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-slate-800 border-2 border-slate-700 text-slate-300 rounded-xl p-6 flex items-start reveal reveal-delay-3">
+                        <i data-lucide="info" class="w-6 h-6 mr-4 mt-0.5 flex-shrink-0 text-brand-blue"></i>
+                        <p class="font-medium text-lg leading-relaxed">Municipal requirements can vary widely by project type and specific jurisdiction. Contact us to confirm current coverage, capabilities, and requirements for your specific project.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 px-4 sm:px-6 lg:px-8 bg-brand-light border-b border-brand-border">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-16 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-4">Built Around Contractor Workflows</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="reveal reveal-delay-1 bg-white border-2 border-brand-border rounded-xl p-8 hover:-translate-y-2 hover:shadow-xl transition-all">
+                            <div class="w-16 h-16 bg-brand-accent border-2 border-brand-blue flex items-center justify-center rounded-xl text-brand-blue mb-8">
+                                <i data-lucide="hammer" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-brand-navy mb-4">Residential Contractors</h3>
+                            <p class="text-brand-slate font-medium text-lg leading-relaxed">For contractors managing residential construction, renovation, and improvement projects that require precise adherence to local town and village codes.</p>
+                        </div>
+                        
+                        <div class="reveal reveal-delay-2 bg-white border-2 border-brand-border rounded-xl p-8 hover:-translate-y-2 hover:shadow-xl transition-all">
+                            <div class="w-16 h-16 bg-brand-accent border-2 border-brand-blue flex items-center justify-center rounded-xl text-brand-blue mb-8">
+                                <i data-lucide="building-2" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-brand-navy mb-4">Commercial Contractors</h3>
+                            <p class="text-brand-slate font-medium text-lg leading-relaxed">For contractors handling commercial projects with more complex documentation, zoning reviews, and intensive permitting requirements.</p>
+                        </div>
+                        
+                        <div class="reveal reveal-delay-3 bg-white border-2 border-brand-border rounded-xl p-8 hover:-translate-y-2 hover:shadow-xl transition-all">
+                            <div class="w-16 h-16 bg-brand-accent border-2 border-brand-blue flex items-center justify-center rounded-xl text-brand-blue mb-8">
+                                <i data-lucide="trending-up" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-brand-navy mb-4">Growing Businesses</h3>
+                            <p class="text-brand-slate font-medium text-lg leading-relaxed">For businesses managing multiple projects across different Long Island jurisdictions simultaneously, requiring strict organization.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-brand-border">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-20 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-4">From Permit Confusion to a Clearer Process</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                        <!-- Without Support -->
+                        <div class="reveal reveal-delay-1 border-4 border-brand-border rounded-2xl p-10 bg-brand-light relative">
+                            <div class="absolute -top-6 left-10 bg-white border-4 border-brand-border px-4 py-2 rounded-lg font-black text-brand-slate uppercase tracking-widest text-sm">Without Organized Support</div>
+                            
+                            <div class="flex justify-center mb-8">
+                                <!-- Messy Papers SVG -->
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-pulse-slow">
+                                    <rect x="20" y="30" width="60" height="80" rx="4" transform="rotate(-15 20 30)" fill="#f8fafc" stroke="#475569" stroke-width="4"/>
+                                    <rect x="40" y="20" width="60" height="80" rx="4" transform="rotate(5 40 20)" fill="#f8fafc" stroke="#475569" stroke-width="4"/>
+                                    <path d="M50 40L90 40" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                                    <path d="M50 55L75 55" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="85" cy="80" r="15" fill="#fef2f2" stroke="#ef4444" stroke-width="4"/>
+                                    <path d="M80 75L90 85M90 75L80 85" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+
+                            <ul class="space-y-6">
+                                <li class="flex items-start">
+                                    <i data-lucide="x" class="w-6 h-6 text-status-error mr-4 mt-1 flex-shrink-0 stroke-[3]"></i>
+                                    <span class="text-brand-slate font-bold text-lg">Searching through different, conflicting requirements</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="x" class="w-6 h-6 text-status-error mr-4 mt-1 flex-shrink-0 stroke-[3]"></i>
+                                    <span class="text-brand-slate font-bold text-lg">Manually identifying overlapping jurisdictions</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="x" class="w-6 h-6 text-status-error mr-4 mt-1 flex-shrink-0 stroke-[3]"></i>
+                                    <span class="text-brand-slate font-bold text-lg">Managing scattered documents and emails</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="x" class="w-6 h-6 text-status-error mr-4 mt-1 flex-shrink-0 stroke-[3]"></i>
+                                    <span class="text-brand-slate font-bold text-lg">Discovering missing information late in the process</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="x" class="w-6 h-6 text-status-error mr-4 mt-1 flex-shrink-0 stroke-[3]"></i>
+                                    <span class="text-brand-slate font-bold text-lg">Keeping track of complex inspections manually</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- With LI Permit Automator -->
+                        <div class="reveal reveal-delay-2 border-4 border-brand-blue rounded-2xl p-10 bg-white relative shadow-xl">
+                            <div class="absolute -top-6 left-10 bg-brand-blue border-4 border-brand-blue px-4 py-2 rounded-lg font-black text-white uppercase tracking-widest text-sm">With LI Permit Automator</div>
+                            
+                            <div class="flex justify-center mb-8">
+                                <!-- Organized Folders SVG -->
+                                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-float">
+                                    <rect x="25" y="40" width="70" height="60" rx="4" fill="#e0e7ff" stroke="#2563eb" stroke-width="4"/>
+                                    <path d="M25 40V35C25 32.7909 26.7909 31 29 31H55L65 40H91C93.2091 40 95 41.7909 95 44V40H25Z" fill="#2563eb"/>
+                                    <rect x="40" y="60" width="40" height="8" rx="4" fill="#2563eb"/>
+                                    <rect x="40" y="76" width="25" height="8" rx="4" fill="#2563eb"/>
+                                    <circle cx="85" cy="85" r="16" fill="#10b981" stroke="#ffffff" stroke-width="4"/>
+                                    <path d="M78 85L83 90L92 80" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+
+                            <ul class="space-y-6">
+                                <li class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-status-success mr-4 mt-1 flex-shrink-0 stroke-[4]"></i>
+                                    <span class="text-brand-navy font-extrabold text-lg">Clearer jurisdiction identification from the start</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-status-success mr-4 mt-1 flex-shrink-0 stroke-[4]"></i>
+                                    <span class="text-brand-navy font-extrabold text-lg">Organized, project-specific requirements</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-status-success mr-4 mt-1 flex-shrink-0 stroke-[4]"></i>
+                                    <span class="text-brand-navy font-extrabold text-lg">Centralized documentation for easy access</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-status-success mr-4 mt-1 flex-shrink-0 stroke-[4]"></i>
+                                    <span class="text-brand-navy font-extrabold text-lg">Pre-submission compliance review to catch issues early</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-status-success mr-4 mt-1 flex-shrink-0 stroke-[4]"></i>
+                                    <span class="text-brand-navy font-extrabold text-lg">Better inspection organization and tracking</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pricing" class="py-24 px-4 sm:px-6 lg:px-8 bg-brand-light border-b border-brand-border">
+                <div class="max-w-7xl mx-auto">
+                    <div class="text-center mb-20 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-4">Simple Plans for Different Project Volumes</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+                        
+                        <!-- Free -->
+                        <div class="reveal reveal-delay-1 bg-white border-2 border-brand-border rounded-xl p-8 flex flex-col hover:-translate-y-1 transition-transform">
+                            <h3 class="text-2xl font-extrabold text-brand-navy mb-2">Free</h3>
+                            <div class="text-5xl font-black text-brand-navy mb-2">$0<span class="text-lg text-brand-slate font-bold">/month</span></div>
+                            <div class="text-lg font-bold text-brand-slate mb-8 pb-6 border-b-2 border-brand-border">Up to 5 projects</div>
+                            
+                            <button onclick="navigate('contact')" class="w-full bg-white border-2 border-brand-navy hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-4 rounded font-bold transition-colors mb-4 text-lg">
+                                Get Started
+                            </button>
+                        </div>
+
+                        <!-- Pro (Highlighted) -->
+                        <div class="reveal reveal-delay-2 bg-brand-navy border-4 border-brand-blue rounded-xl p-10 flex flex-col relative shadow-2xl transform scale-105 z-10">
+                            <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-blue text-white font-black px-6 py-2 rounded-full uppercase tracking-widest text-sm whitespace-nowrap shadow-lg">Most Popular</div>
+                            <h3 class="text-2xl font-extrabold text-white mb-2">Pro</h3>
+                            <div class="text-5xl font-black text-white mb-2">$79<span class="text-lg text-slate-300 font-bold">/month</span></div>
+                            <div class="text-lg font-bold text-slate-300 mb-8 pb-6 border-b-2 border-slate-700">Up to 50 projects</div>
+                            
+                            <button onclick="navigate('contact')" class="w-full bg-brand-blue hover:bg-brand-blueHover text-white px-4 py-4 rounded font-bold transition-colors mb-4 text-lg">
+                                Request Information
+                            </button>
+                        </div>
+
+                        <!-- Team -->
+                        <div class="reveal reveal-delay-3 bg-white border-2 border-brand-border rounded-xl p-8 flex flex-col hover:-translate-y-1 transition-transform">
+                            <h3 class="text-2xl font-extrabold text-brand-navy mb-2">Team</h3>
+                            <div class="text-5xl font-black text-brand-navy mb-2">$199<span class="text-lg text-brand-slate font-bold">/month</span></div>
+                            <div class="text-lg font-bold text-brand-slate mb-8 pb-6 border-b-2 border-brand-border">Unlimited projects</div>
+                            
+                            <button onclick="navigate('contact')" class="w-full bg-white border-2 border-brand-navy hover:bg-brand-navy hover:text-white text-brand-navy px-4 py-4 rounded font-bold transition-colors mb-4 text-lg">
+                                Contact Us
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-brand-border">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16 reveal">
+                        <h2 class="text-4xl font-extrabold text-brand-navy mb-4">Frequently Asked Questions</h2>
+                    </div>
+
+                    <div class="space-y-4 reveal reveal-delay-2">
+                        
+                        <details class="group border-2 border-brand-border rounded-xl bg-white overflow-hidden">
+                            <summary class="flex justify-between items-center font-extrabold text-lg cursor-pointer p-6 text-brand-navy hover:bg-brand-light transition-colors">
+                                <span>What areas does LI Permit Automator cover?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-brand-light border border-brand-border p-2 rounded">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-brand-slate"></i>
+                                </span>
+                            </summary>
+                            <div class="text-brand-slate text-lg font-medium p-6 pt-0 border-t-2 border-brand-border mt-2 leading-relaxed">
+                                LI Permit Automator currently focuses on municipalities across Nassau and Suffolk Counties on Long Island, NY.
+                            </div>
+                        </details>
+
+                        <details class="group border-2 border-brand-border rounded-xl bg-white overflow-hidden">
+                            <summary class="flex justify-between items-center font-extrabold text-lg cursor-pointer p-6 text-brand-navy hover:bg-brand-light transition-colors">
+                                <span>Does LI Permit Automator handle every permit?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-brand-light border border-brand-border p-2 rounded">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-brand-slate"></i>
+                                </span>
+                            </summary>
+                            <div class="text-brand-slate text-lg font-medium p-6 pt-0 border-t-2 border-brand-border mt-2 leading-relaxed">
+                                Coverage and requirements can vary widely by municipality and the specific nature of the project. Visitors should contact us to confirm whether their specific project and location are supported.
+                            </div>
+                        </details>
+
+                        <details class="group border-2 border-brand-border rounded-xl bg-white overflow-hidden">
+                            <summary class="flex justify-between items-center font-extrabold text-lg cursor-pointer p-6 text-brand-navy hover:bg-brand-light transition-colors">
+                                <span>What types of contractors can use the service?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-brand-light border border-brand-border p-2 rounded">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-brand-slate"></i>
+                                </span>
+                            </summary>
+                            <div class="text-brand-slate text-lg font-medium p-6 pt-0 border-t-2 border-brand-border mt-2 leading-relaxed">
+                                The service is designed for both residential and commercial contractors working on projects across Long Island jurisdictions.
+                            </div>
+                        </details>
+
+                        <details class="group border-2 border-brand-border rounded-xl bg-white overflow-hidden">
+                            <summary class="flex justify-between items-center font-extrabold text-lg cursor-pointer p-6 text-brand-navy hover:bg-brand-light transition-colors">
+                                <span>Does LI Permit Automator guarantee permit approval?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-brand-light border border-brand-border p-2 rounded">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-brand-slate"></i>
+                                </span>
+                            </summary>
+                            <div class="text-brand-slate text-lg font-medium p-6 pt-0 border-t-2 border-brand-border mt-2 leading-relaxed">
+                                No. The service helps contractors organize requirements, documentation, and compliance checks prior to submission, but actual permit approval remains entirely subject to the applicable municipality and its official review process.
+                            </div>
+                        </details>
+
+                        <details class="group border-2 border-brand-border rounded-xl bg-white overflow-hidden">
+                            <summary class="flex justify-between items-center font-extrabold text-lg cursor-pointer p-6 text-brand-navy hover:bg-brand-light transition-colors">
+                                <span>Can I ask about a specific municipality?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-brand-light border border-brand-border p-2 rounded">
+                                    <i data-lucide="chevron-down" class="w-5 h-5 text-brand-slate"></i>
+                                </span>
+                            </summary>
+                            <div class="text-brand-slate text-lg font-medium p-6 pt-0 border-t-2 border-brand-border mt-2 leading-relaxed">
+                                Yes. We encourage visitors to contact us with their project location and requirements so we can confirm current processes for that specific area.
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-32 px-4 sm:px-6 lg:px-8 bg-brand-blue text-white text-center relative overflow-hidden">
+                <!-- Flat geometric shapes for animation -->
+                <div class="absolute top-10 left-10 w-24 h-24 border-4 border-white/20 rounded-full animate-float"></div>
+                <div class="absolute bottom-10 right-10 w-32 h-32 border-4 border-white/20 rounded animate-float-delayed transform rotate-12"></div>
+                
+                <div class="max-w-4xl mx-auto relative z-10 reveal">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight">Make Your Next Permit Process Easier to Navigate.</h2>
+                    <p class="text-xl text-blue-100 mb-12 font-medium max-w-2xl mx-auto">
+                        Tell us about your project, location, and permitting needs. Serving contractors across Nassau and Suffolk County.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-white text-brand-blue hover:bg-brand-light px-10 py-5 rounded-lg font-extrabold transition-all hover:-translate-y-1 hover:shadow-2xl text-xl">
+                        Request Information
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div id="contact-view" class="page-view">
+            <section class="pt-12 pb-32 px-4 sm:px-6 lg:px-8 bg-brand-light min-h-[calc(100vh-80px)] relative">
+                
+                <!-- Background decoration -->
+                <div class="absolute top-0 right-0 w-full h-96 bg-brand-navy rounded-bl-[100px] z-0"></div>
+
+                <div class="max-w-6xl mx-auto relative z-10">
+                    
+                    <button onclick="navigate('home')" class="text-sm font-bold text-slate-300 hover:text-white flex items-center mb-8 transition-colors group">
+                        <i data-lucide="arrow-left" class="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1"></i> Back to Home
+                    </button>
+
+                    <div class="mb-12">
+                        <h1 class="text-5xl font-extrabold text-white mb-4">Let's Talk About Your Project</h1>
+                        <p class="text-xl text-slate-300 max-w-3xl font-medium">
+                            Have questions about permitting requirements, coverage, pricing, or your specific project? Send us a message and we'll help you determine whether LI Permit Automator is a good fit.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        <!-- Contact Form Container -->
+                        <div class="lg:col-span-2 bg-white border-2 border-brand-border rounded-xl p-10 shadow-2xl">
+                            
+                            <!-- Success Message (Hidden by default) -->
+                            <div id="form-success" class="hidden bg-green-50 border-2 border-green-200 text-green-800 rounded-xl p-10 text-center animate-fade-in-up">
+                                <div class="w-20 h-20 bg-status-success rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <i data-lucide="check" class="w-10 h-10 text-white stroke-[4]"></i>
+                                </div>
+                                <h3 class="text-3xl font-extrabold mb-4">Thanks — your inquiry has been received.</h3>
+                                <p class="text-lg font-medium mb-8">We'll get back to you soon regarding your project needs.</p>
+                                <button onclick="resetForm()" class="text-lg font-bold text-brand-blue hover:underline">Submit another inquiry</button>
+                            </div>
+
+                            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-8">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                    <div>
+                                        <label for="fullName" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Full Name *</label>
+                                        <input type="text" id="fullName" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                    </div>
+                                    <div>
+                                        <label for="company" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Company Name</label>
+                                        <input type="text" id="company" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                    <div>
+                                        <label for="email" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Email Address *</label>
+                                        <input type="email" id="email" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Phone Number</label>
+                                        <input type="tel" id="phone" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                    <div>
+                                        <label for="county" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Primary County</label>
+                                        <select id="county" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                            <option value="">Select County...</option>
+                                            <option value="nassau">Nassau</option>
+                                            <option value="suffolk">Suffolk</option>
+                                            <option value="both">Both</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="projectVolume" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Number of Projects</label>
+                                        <select id="projectVolume" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                            <option value="">Select Volume...</option>
+                                            <option value="1-5">1-5</option>
+                                            <option value="6-20">6-20</option>
+                                            <option value="21+">21+</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="interest" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">What are you interested in?</label>
+                                    <select id="interest" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                        <option value="general">General Information</option>
+                                        <option value="pricing">Pricing</option>
+                                        <option value="support">Permit Support</option>
+                                        <option value="coverage">Municipality Coverage</option>
+                                        <option value="demo">Demo</option>
+                                        <option value="partnership">Partnership</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="message" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Message *</label>
+                                    <textarea id="message" rows="5" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white resize-y"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-extrabold py-5 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl text-xl flex items-center justify-center">
+                                    Send Inquiry
+                                    <i data-lucide="send" class="w-6 h-6 ml-3"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Sidebar Info -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white border-2 border-brand-border rounded-xl p-8 sticky top-28 shadow-lg">
+                                <h3 class="text-2xl font-extrabold text-brand-navy mb-8 pb-6 border-b-2 border-brand-border">Contact Info</h3>
+                                
+                                <div class="space-y-8">
+                                    <div class="flex items-start group">
+                                        <div class="w-12 h-12 bg-brand-light border-2 border-brand-border rounded flex items-center justify-center mr-4 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors">
+                                            <i data-lucide="mail" class="w-6 h-6 text-brand-navy group-hover:text-white transition-colors"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-extrabold text-brand-navy uppercase tracking-wider mb-1">Email Us</div>
+                                            <div class="text-lg text-brand-slate font-medium">support@lipermitautomator.com</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start group">
+                                        <div class="w-12 h-12 bg-brand-light border-2 border-brand-border rounded flex items-center justify-center mr-4 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors">
+                                            <i data-lucide="map-pin" class="w-6 h-6 text-brand-navy group-hover:text-white transition-colors"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-extrabold text-brand-navy uppercase tracking-wider mb-1">Service Area</div>
+                                            <div class="text-lg text-brand-slate font-medium leading-tight">
+                                                Nassau & Suffolk Counties<br>
+                                                Long Island, NY
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start group">
+                                        <div class="w-12 h-12 bg-brand-light border-2 border-brand-border rounded flex items-center justify-center mr-4 group-hover:bg-brand-blue group-hover:border-brand-blue transition-colors">
+                                            <i data-lucide="clock" class="w-6 h-6 text-brand-navy group-hover:text-white transition-colors"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-extrabold text-brand-navy uppercase tracking-wider mb-1">Business Hours</div>
+                                            <div class="text-lg text-brand-slate font-medium leading-tight">
+                                                Monday - Friday<br>
+                                                8:00 AM - 5:00 PM EST
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-10 pt-8 border-t-2 border-brand-border">
+                                    <p class="text-sm font-medium text-brand-slate leading-relaxed bg-brand-light p-4 rounded border border-brand-border">
+                                        <strong>Please note:</strong> We do not guarantee permit approval. All applications are subject to review by the respective municipality.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-brand-navy text-white py-16 px-4 sm:px-6 lg:px-8 border-t-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 pb-12 border-b border-slate-700">
+            
+            <div class="md:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 bg-brand-blue flex items-center justify-center rounded text-white font-bold mr-3">
+                        <i data-lucide="file-check-2" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-extrabold text-white text-2xl tracking-tight">LI Permit Automator</span>
+                </div>
+                <p class="text-lg text-slate-400 max-w-sm font-medium leading-relaxed">
+                    Permit support and compliance services for Long Island contractors.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="font-extrabold text-white mb-6 uppercase tracking-widest text-sm">Navigation</h4>
+                <ul class="space-y-4 text-base font-medium text-slate-400">
+                    <li><a href="#services" onclick="navigate('home')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> Services</a></li>
+                    <li><a href="#how-it-works" onclick="navigate('home')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> How It Works</a></li>
+                    <li><a href="#coverage" onclick="navigate('home')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> Coverage</a></li>
+                    <li><a href="#pricing" onclick="navigate('home')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> Pricing</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-extrabold text-white mb-6 uppercase tracking-widest text-sm">Support</h4>
+                <ul class="space-y-4 text-base font-medium text-slate-400">
+                    <li><a href="#faq" onclick="navigate('home')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> FAQ</a></li>
+                    <li><a href="#" onclick="navigate('contact')" class="hover:text-brand-blue transition-colors flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-2"></i> Contact Us</a></li>
+                </ul>
+            </div>
+
+        </div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-slate-500 font-medium">
+            <div class="mb-4 md:mb-0">
+                &copy; 2024 LI Permit Automator. All rights reserved.
+            </div>
+            <div class="max-w-xl text-left md:text-right">
+                Permit requirements and municipal processes may change. Always confirm current requirements with the applicable authority.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Single Page App Routing Logic
+        function navigate(pageId) {
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show target view
+            const target = document.getElementById(pageId + '-view');
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Re-trigger scroll animations if going home
+                if(pageId === 'home') {
+                    setTimeout(() => {
+                        document.querySelectorAll('.reveal').forEach(el => {
+                            if(isElementInViewport(el)) el.classList.add('active');
+                        });
+                    }, 100);
+                }
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Form Handling Logic
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent actual form submission
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('contactForm').reset();
+            document.getElementById('form-success').style.display = 'none';
+            document.getElementById('contactForm').style.display = 'block';
+        }
+
+        // Scroll Reveal Animation Logic
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+            );
+        }
+
+        function handleScrollAnimations() {
+            // Fade up reveals
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('active');
+                }
+            });
+
+            // Timeline line animation
+            const timelineSection = document.getElementById('how-it-works');
+            const timelineProgress = document.getElementById('timeline-progress');
+            if (timelineSection && timelineProgress && isElementInViewport(timelineSection)) {
+                timelineProgress.style.width = '100%';
+            }
+
+            // Header shadow on scroll
+            const header = document.getElementById('main-header');
+            if(window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        }
+
+        // Event Listeners for Animations
+        window.addEventListener('scroll', handleScrollAnimations);
+        window.addEventListener('load', () => {
+            handleScrollAnimations(); // Trigger initial view
+            
+            // Initial animation for hero elements
+            setTimeout(() => {
+                document.querySelectorAll('#home-view .reveal').forEach(el => {
+                    if (isElementInViewport(el)) el.classList.add('active');
+                });
+            }, 100);
+        });
+
+    </script>
+</body>
+</html>
