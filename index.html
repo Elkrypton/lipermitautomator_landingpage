@@ -429,7 +429,6 @@
                         
                         <!-- Desktop Horizontal Connecting Line -->
                         <div class="hidden lg:block absolute top-10 left-20 right-20 h-1 bg-brand-border z-0">
-                            <!-- Animated fill line (CSS handled via JS intersection later, but static fallback here) -->
                             <div class="h-full bg-brand-blue w-0 transition-all duration-1000 ease-out" id="timeline-progress"></div>
                         </div>
 
@@ -473,10 +472,8 @@
 
             <section id="coverage" class="py-24 px-4 sm:px-6 lg:px-8 bg-brand-navy text-white overflow-hidden relative border-b border-brand-border">
                 
-                <!-- Abstract Flat Map SVG Background -->
                 <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center overflow-hidden">
                     <svg viewBox="0 0 800 400" class="w-[150%] max-w-none lg:w-full h-auto text-brand-blue" fill="currentColor">
-                        <!-- Abstract Long Island shape -->
                         <path d="M100,250 Q150,220 200,240 T300,220 T400,230 T500,200 T600,180 T700,150 L750,160 Q720,190 650,210 T550,240 T450,260 T350,280 T250,270 T150,290 Z" />
                     </svg>
                 </div>
@@ -584,7 +581,6 @@
                             <div class="absolute -top-6 left-10 bg-white border-4 border-brand-border px-4 py-2 rounded-lg font-black text-brand-slate uppercase tracking-widest text-sm">Without Organized Support</div>
                             
                             <div class="flex justify-center mb-8">
-                                <!-- Messy Papers SVG -->
                                 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-pulse-slow">
                                     <rect x="20" y="30" width="60" height="80" rx="4" transform="rotate(-15 20 30)" fill="#f8fafc" stroke="#475569" stroke-width="4"/>
                                     <rect x="40" y="20" width="60" height="80" rx="4" transform="rotate(5 40 20)" fill="#f8fafc" stroke="#475569" stroke-width="4"/>
@@ -624,7 +620,6 @@
                             <div class="absolute -top-6 left-10 bg-brand-blue border-4 border-brand-blue px-4 py-2 rounded-lg font-black text-white uppercase tracking-widest text-sm">With LI Permit Automator</div>
                             
                             <div class="flex justify-center mb-8">
-                                <!-- Organized Folders SVG -->
                                 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-float">
                                     <rect x="25" y="40" width="70" height="60" rx="4" fill="#e0e7ff" stroke="#2563eb" stroke-width="4"/>
                                     <path d="M25 40V35C25 32.7909 26.7909 31 29 31H55L65 40H91C93.2091 40 95 41.7909 95 44V40H25Z" fill="#2563eb"/>
@@ -781,7 +776,6 @@
             </section>
 
             <section class="py-32 px-4 sm:px-6 lg:px-8 bg-brand-blue text-white text-center relative overflow-hidden">
-                <!-- Flat geometric shapes for animation -->
                 <div class="absolute top-10 left-10 w-24 h-24 border-4 border-white/20 rounded-full animate-float"></div>
                 <div class="absolute bottom-10 right-10 w-32 h-32 border-4 border-white/20 rounded animate-float-delayed transform rotate-12"></div>
                 
@@ -800,7 +794,6 @@
         <div id="contact-view" class="page-view">
             <section class="pt-12 pb-32 px-4 sm:px-6 lg:px-8 bg-brand-light min-h-[calc(100vh-80px)] relative">
                 
-                <!-- Background decoration -->
                 <div class="absolute top-0 right-0 w-full h-96 bg-brand-navy rounded-bl-[100px] z-0"></div>
 
                 <div class="max-w-6xl mx-auto relative z-10">
@@ -818,10 +811,10 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         
-                        <!-- Contact Form Container -->
+                        <!-- Contact Form Container (Formspree Integrated) -->
                         <div class="lg:col-span-2 bg-white border-2 border-brand-border rounded-xl p-10 shadow-2xl">
                             
-                            <!-- Success Message (Hidden by default) -->
+                            <!-- Success Message (Hidden by default, shown if Formspree redirects or via JS fetch) -->
                             <div id="form-success" class="hidden bg-green-50 border-2 border-green-200 text-green-800 rounded-xl p-10 text-center animate-fade-in-up">
                                 <div class="w-20 h-20 bg-status-success rounded-full flex items-center justify-center mx-auto mb-6">
                                     <i data-lucide="check" class="w-10 h-10 text-white stroke-[4]"></i>
@@ -831,33 +824,33 @@
                                 <button onclick="resetForm()" class="text-lg font-bold text-brand-blue hover:underline">Submit another inquiry</button>
                             </div>
 
-                            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-8">
+                            <form id="contactForm" action="https://formspree.io/f/xkjggeep" method="POST" onsubmit="handleFormSubmit(event)" class="space-y-8">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                     <div>
                                         <label for="fullName" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Full Name *</label>
-                                        <input type="text" id="fullName" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                        <input type="text" id="fullName" name="fullName" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
                                     </div>
                                     <div>
                                         <label for="company" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Company Name</label>
-                                        <input type="text" id="company" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                        <input type="text" id="company" name="company" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                     <div>
                                         <label for="email" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Email Address *</label>
-                                        <input type="email" id="email" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                        <input type="email" id="email" name="email" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
                                     </div>
                                     <div>
                                         <label for="phone" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Phone Number</label>
-                                        <input type="tel" id="phone" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
+                                        <input type="tel" id="phone" name="phone" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white">
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                     <div>
                                         <label for="county" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Primary County</label>
-                                        <select id="county" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                        <select id="county" name="county" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
                                             <option value="">Select County...</option>
                                             <option value="nassau">Nassau</option>
                                             <option value="suffolk">Suffolk</option>
@@ -866,7 +859,7 @@
                                     </div>
                                     <div>
                                         <label for="projectVolume" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Number of Projects</label>
-                                        <select id="projectVolume" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                        <select id="projectVolume" name="projectVolume" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
                                             <option value="">Select Volume...</option>
                                             <option value="1-5">1-5</option>
                                             <option value="6-20">6-20</option>
@@ -877,7 +870,7 @@
 
                                 <div>
                                     <label for="interest" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">What are you interested in?</label>
-                                    <select id="interest" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
+                                    <select id="interest" name="interest" class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white appearance-none cursor-pointer">
                                         <option value="general">General Information</option>
                                         <option value="pricing">Pricing</option>
                                         <option value="support">Permit Support</option>
@@ -890,10 +883,10 @@
 
                                 <div>
                                     <label for="message" class="block text-sm font-extrabold text-brand-navy mb-2 uppercase tracking-wide">Message *</label>
-                                    <textarea id="message" rows="5" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white resize-y"></textarea>
+                                    <textarea id="message" name="message" rows="5" required class="w-full border-2 border-brand-border rounded-lg px-5 py-3 text-lg font-medium focus:outline-none focus:border-brand-blue focus:ring-4 focus:ring-brand-accent transition-all bg-brand-light focus:bg-white resize-y"></textarea>
                                 </div>
 
-                                <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-extrabold py-5 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl text-xl flex items-center justify-center">
+                                <button type="submit" id="submit-btn" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-extrabold py-5 rounded-lg transition-all hover:-translate-y-1 hover:shadow-xl text-xl flex items-center justify-center">
                                     Send Inquiry
                                     <i data-lucide="send" class="w-6 h-6 ml-3"></i>
                                 </button>
@@ -992,7 +985,7 @@
         
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center text-sm text-slate-500 font-medium">
             <div class="mb-4 md:mb-0">
-                &copy; 2024 LI Permit Automator. All rights reserved.
+                &copy; 2026 LI Permit Automator. All rights reserved.
             </div>
             <div class="max-w-xl text-left md:text-right">
                 Permit requirements and municipal processes may change. Always confirm current requirements with the applicable authority.
@@ -1006,18 +999,15 @@
 
         // Single Page App Routing Logic
         function navigate(pageId) {
-            // Hide all views
             document.querySelectorAll('.page-view').forEach(el => {
                 el.classList.remove('active');
             });
             
-            // Show target view
             const target = document.getElementById(pageId + '-view');
             if (target) {
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // Re-trigger scroll animations if going home
                 if(pageId === 'home') {
                     setTimeout(() => {
                         document.querySelectorAll('.reveal').forEach(el => {
@@ -1038,18 +1028,55 @@
             }
         }
 
-        // Form Handling Logic
-        function handleFormSubmit(event) {
-            event.preventDefault(); // Prevent actual form submission
-            document.getElementById('contactForm').style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Formspree AJAX Submission Handler
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = document.getElementById('submit-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending Inquiry...';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    document.getElementById('contactForm').style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    lucide.createIcons();
+                } else {
+                    const data = await response.json();
+                    if (data && data.errors) {
+                        alert(data.errors.map(error => error.message).join(", "));
+                    } else {
+                        alert('Oops! There was a problem submitting your form. Please try again or email us directly.');
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            } catch (error) {
+                alert('Oops! There was a network error. Please check your connection and try again.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
         }
 
         function resetForm() {
             document.getElementById('contactForm').reset();
             document.getElementById('form-success').style.display = 'none';
             document.getElementById('contactForm').style.display = 'block';
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Inquiry <i data-lucide="send" class="w-6 h-6 ml-3"></i>';
+            lucide.createIcons();
         }
 
         // Scroll Reveal Animation Logic
@@ -1061,21 +1088,18 @@
         }
 
         function handleScrollAnimations() {
-            // Fade up reveals
             document.querySelectorAll('.reveal').forEach(el => {
                 if (isElementInViewport(el)) {
                     el.classList.add('active');
                 }
             });
 
-            // Timeline line animation
             const timelineSection = document.getElementById('how-it-works');
             const timelineProgress = document.getElementById('timeline-progress');
             if (timelineSection && timelineProgress && isElementInViewport(timelineSection)) {
                 timelineProgress.style.width = '100%';
             }
 
-            // Header shadow on scroll
             const header = document.getElementById('main-header');
             if(window.scrollY > 20) {
                 header.classList.add('shadow-md');
@@ -1084,19 +1108,15 @@
             }
         }
 
-        // Event Listeners for Animations
         window.addEventListener('scroll', handleScrollAnimations);
         window.addEventListener('load', () => {
-            handleScrollAnimations(); // Trigger initial view
-            
-            // Initial animation for hero elements
+            handleScrollAnimations();
             setTimeout(() => {
                 document.querySelectorAll('#home-view .reveal').forEach(el => {
                     if (isElementInViewport(el)) el.classList.add('active');
                 });
             }, 100);
         });
-
     </script>
 </body>
 </html>
